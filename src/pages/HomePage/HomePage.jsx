@@ -6,8 +6,7 @@ const HomePage = () => {
         <>
             <Intro />
             {/* Component About  */}
-            {/* Component Subscribe  */}
-        </>
+            {/* Component Subscribe  */}        </>
     );
 };
 
