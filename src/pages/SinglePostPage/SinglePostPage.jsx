@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './singlepostpage.module.css';
 import postImg from './postimg.png';
+import { useParams } from 'react-router-dom';
+import postService from '../../services/posts';
 
 const SinglePostPage = () => {
+  const { id } = useParams() // useParams() - { id: r3ty34ur46 }
     return (
       <article className={styles.post}>
         <h1 className={styles.title}>My title</h1>
@@ -24,4 +27,6 @@ const SinglePostPage = () => {
 
 export default SinglePostPage;
 
-// ctrl+K+F
+/*
+  Вызывать функцию для получения поста с id, который мы получаем из useParams()
+*/
