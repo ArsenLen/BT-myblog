@@ -3,6 +3,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import styles from './registerpage.module.css';
 import { useFormik } from 'formik';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
 
@@ -12,20 +15,17 @@ const RegisterPage = () => {
             password: '',
             username: ''
         },
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (values) => {
+            try {
+                const res = await axios.post("https://gentle-ridge-36337.herokuapp.com/api/auth/register", values)
+                console.log(res) 
+                toast("Пользователь зарегистрирован")  
+            } catch (err) {
+                toast(err.response.data)
+            }
         } 
     })
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     const newUser = {
-    //         email,
-    //         name,
-    //         password
-    //     }
-    //     console.log(newUser)
-    // }
     return (
         <section className={styles.wrapper}>
             <h1 className={styles.title}>
@@ -74,6 +74,7 @@ const RegisterPage = () => {
                     Зарегистрироваться
                 </Button>
             </form>
+            <ToastContainer />
         </section>
     );
 };
