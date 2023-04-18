@@ -2,56 +2,68 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import styles from './registerpage.module.css';
+import { useFormik } from 'formik';
 
 const RegisterPage = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [name, setName] = useState('')
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const newUser = {
-            email,
-            name,
-            password
-        }
-        console.log(newUser)
-    }
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            username: ''
+        },
+        onSubmit: (values) => {
+            console.log(values)
+        } 
+    })
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     const newUser = {
+    //         email,
+    //         name,
+    //         password
+    //     }
+    //     console.log(newUser)
+    // }
     return (
         <section className={styles.wrapper}>
             <h1 className={styles.title}>
                 Регистрация
             </h1>
-            <form className={styles.form} onSubmit={handleSubmit} >
+            <form className={styles.form} onSubmit={formik.handleSubmit} >
                 <TextField 
                     label="Ваш email" 
                     variant="filled" 
                     type="email"
+                    name="email"
                     fullWidth
                     required
                     style={{ marginBottom: "20px" }}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
                 />
                 <TextField 
                     label="Ваше имя" 
                     variant="filled" 
                     type="text"
+                    name="username"
                     fullWidth
                     required
                     style={{ marginBottom: "20px" }}
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
                 />
                 <TextField 
                     label="Ваш пароль" 
                     variant="filled" 
                     type="password"
+                    name="password"
                     fullWidth
                     required
                     style={{ marginBottom: "40px" }}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                 />
                 <Button 
                     fullWidth 
