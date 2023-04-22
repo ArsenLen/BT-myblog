@@ -14,7 +14,8 @@ const login = (loginData) => {
 const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [username, setUsername] = useState('')
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         const userObj = {
@@ -22,15 +23,17 @@ const LoginPage = () => {
             password
         }
         try {
-            const res = await login(userObj) 
+            const res = await login(userObj)
+            console.log(res.data.username) 
+            setUsername(res.data.username)
             toast("Вы успешно авторизовались")
         } catch (error) {
             toast(error.response.data)
         }
     }
-    return (
+    return ( 
         <section className={styles.wrapper}>
-            <h1 className={styles.title}>Логин</h1>
+            <h1 className={styles.title}>Логин {username}</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
             <TextField 
                     label="Ваш email" 
