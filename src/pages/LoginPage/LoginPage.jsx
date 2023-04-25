@@ -5,6 +5,8 @@ import styles from '../RegisterPage/registerpage.module.css';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../redux/userSlice';
 
 
 const login = (loginData) => {
@@ -15,6 +17,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
+    const dispatch = useDispatch() // useDispatch() позволяет вызвать action
     
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -24,7 +27,7 @@ const LoginPage = () => {
         }
         try {
             const res = await login(userObj)
-            console.log(res.data.username) 
+            dispatch(loginSuccess(res.data)) // {email: "admin", username:"Arsen"}
             setUsername(res.data.username)
             toast("Вы успешно авторизовались")
         } catch (error) {
